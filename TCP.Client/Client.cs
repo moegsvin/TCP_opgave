@@ -10,20 +10,47 @@ namespace TCP.Client
 {
     class Client
     {
+        public TcpClient Connection { get; private set; }
+        public BinaryReader Reader { get; private set; }
+        public BinaryWriter Writer { get; private set; }
+        public NetworkStream Stream { get; private set; }
+
+        private string  _ip         = "127.0.0.1";
+        private int     _port       = 7000;
+        private bool    _connected  = false;
+
+        //  TODO: Deprecated. Prepare for deletion or refactoring.
         public void Start()
         {
-            TcpClient tcpclient = new TcpClient();
-            tcpclient.Connect("127.0.0.1", 7000);
-            NetworkStream s = tcpclient.GetStream();
-            BinaryReader r = new BinaryReader(s);
-            BinaryWriter w = new BinaryWriter(s);
+            Connection = new TcpClient();
+            Connection.Connect(_ip, _port);
+
+            Stream      = Connection.GetStream();
+            Reader      = new BinaryReader(Stream);
+            Writer      = new BinaryWriter(Stream);
 
             while (true)
             {
-                w.Write(Console.ReadLine());
-                Console.WriteLine(r.ReadString());
+                Writer.Write(Console.ReadLine());
+                Console.WriteLine(Reader.ReadString());
             }
 
         }
+
+        public void Connect()
+        {
+            try { 
+            Connection = new TcpClient();
+            Connection.Connect(_ip, _port);
+
+            Stream = Connection.GetStream();
+            Reader = new BinaryReader(Stream);
+            Writer = new BinaryWriter(Stream);
+
+            } catch { throw new Exception("Connection to TCP Server failed"); }
+        }
+
+
+
     }
 }
