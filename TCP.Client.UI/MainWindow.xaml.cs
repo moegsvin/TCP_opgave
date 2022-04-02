@@ -24,7 +24,6 @@ namespace TCP.Client.UI
         public MainWindow()
         {
             var _client = new Client();
-            _client.Start();
             InitializeComponent();
         }
     }
