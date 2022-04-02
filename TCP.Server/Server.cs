@@ -95,7 +95,7 @@ namespace TCP.Server
 
             Console.WriteLine(prefix + "Connected");
 
-            
+            HandleClientResponse(clientID, s, w, r);
         }
     }
 }
