@@ -33,8 +33,11 @@ namespace TCP.Client.UI
             var _client = new Client();
             _client.Connect();
 
+            TextBox textBoxAnswer = this.FindName("Client_Input") as TextBox;
 
-            MessageBox.Show(_client.SendStringWithEcho("Marco"));
+
+            MessageBox.Show("Client Message: " + textBoxAnswer.Text);
+            MessageBox.Show("Server Response: " + _client.SendStringWithEcho(textBoxAnswer.Text));
         }
 
 
