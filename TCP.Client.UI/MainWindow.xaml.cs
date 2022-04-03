@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -31,7 +32,12 @@ namespace TCP.Client.UI
         {
             var _client = new Client();
             _client.Connect();
-            _client.SendStringWithEcho("Marco");
+
+
+            MessageBox.Show(_client.SendStringWithEcho("Marco"));
         }
+
+
+
     }
 }
