@@ -23,8 +23,15 @@ namespace TCP.Client.UI
     {
         public MainWindow()
         {
-            var _client = new Client();
+            
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var _client = new Client();
+            _client.Connect();
+            _client.SendStringWithEcho("Marco");
         }
     }
 }

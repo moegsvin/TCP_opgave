@@ -10,16 +10,15 @@ namespace TCP.Client
 {
     public class Client
     {
-        public TcpClient Connection { get; private set; }
-        public BinaryReader Reader { get; private set; }
-        public BinaryWriter Writer { get; private set; }
-        public NetworkStream Stream { get; private set; }
+        public TcpClient        Connection  { get; private set; }
+        public BinaryReader     Reader      { get; private set; }
+        public BinaryWriter     Writer      { get; private set; }
+        public NetworkStream    Stream      { get; private set; }
 
         private string  _ip         = "127.0.0.1";
         private int     _port       = 7000;
         private bool    _connected  = false;
         private bool    _waiting    = false;
-
 
         public void Connect()
         {
@@ -40,6 +39,24 @@ namespace TCP.Client
             } catch { throw new Exception("Connection to TCP Server failed"); }
         }
 
+        public void EstablishConsoleEchoExchange()
+        {
+            if (_waiting)
+            {
+                while (true)
+                {
+                    Writer.Write(Console.ReadLine());
+                    Console.WriteLine(Reader.ReadString());
+                }
+            } else { throw new Exception("Client isn't in waiting mode."); }
+        }
+
+        public string SendStringWithEcho(string message)
+        {
+            Writer.Write(message);
+            return Reader.ReadString();
+        }
+
 
 
         //  TODO: Deprecated. Prepare for deletion or refactoring.
@@ -52,14 +69,10 @@ namespace TCP.Client
             Reader      = new BinaryReader(Stream);
             Writer      = new BinaryWriter(Stream);
 
-            // Fix for refactored server
+            // Fix for refactored server 
             Reader.ReadBoolean();
 
-            while (true)
-            {
-                Writer.Write(Console.ReadLine());
-                Console.WriteLine(Reader.ReadString());
-            }
+            EstablishConsoleEchoExchange();
 
         }
 
