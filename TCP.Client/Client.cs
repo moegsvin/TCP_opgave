@@ -39,18 +39,6 @@ namespace TCP.Client
             } catch { throw new Exception("Connection to TCP Server failed"); }
         }
 
-        public void EstablishConsoleEchoExchange()
-        {
-            if (_waiting)
-            {
-                while (true)
-                {
-                    Writer.Write(Console.ReadLine());
-                    Console.WriteLine(Reader.ReadString());
-                }
-            } else { throw new Exception("Client isn't in waiting mode."); }
-        }
-
         public string SendStringWithEcho(string message)
         {
             Writer.Write(message);
@@ -62,19 +50,23 @@ namespace TCP.Client
         //  TODO: Deprecated. Prepare for deletion or refactoring.
         public void Start()
         {
-            Connection = new TcpClient();
-            Connection.Connect(_ip, _port);
+            while (true)
+            {
+                Connection = new TcpClient();
+                Connection.Connect(_ip, _port);
 
-            Stream      = Connection.GetStream();
-            Reader      = new BinaryReader(Stream);
-            Writer      = new BinaryWriter(Stream);
+                Stream = Connection.GetStream();
+                Reader = new BinaryReader(Stream);
+                Writer = new BinaryWriter(Stream);
 
-            // Fix for refactored server 
-            if (Reader.ReadBoolean())
-            { _waiting = true; }
+                // Fix for refactored server 
+                if (Reader.ReadBoolean())
+                { _waiting = true; }
 
-            EstablishConsoleEchoExchange();
-
+                Writer.Write( Console.ReadLine() );
+                Console.WriteLine( "Server Response: " + Reader.ReadString() );
+            }
+            
         }
 
 
