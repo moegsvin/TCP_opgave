@@ -70,7 +70,8 @@ namespace TCP.Client
             Writer      = new BinaryWriter(Stream);
 
             // Fix for refactored server 
-            Reader.ReadBoolean();
+            if (Reader.ReadBoolean())
+            { _waiting = true; }
 
             EstablishConsoleEchoExchange();
 
