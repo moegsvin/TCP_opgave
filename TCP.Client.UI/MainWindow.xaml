@@ -10,10 +10,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <TextBox Margin="0 10 0 0" MinWidth="100" MaxWidth="150" Grid.Row="0" Name="Client_Input">Test</TextBox>
-        <Button Margin="0 10 0 0" MinWidth="100" MaxWidth="150" Grid.Row="1" Click="Button_Click" >Send String</Button>
+        <Button Margin="0 10 0 0" MinWidth="100" MaxWidth="150" Grid.Row="1" Click="Button_Click">Send String</Button>
     </Grid>
 </Window>

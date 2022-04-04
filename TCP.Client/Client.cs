@@ -66,9 +66,6 @@ namespace TCP.Client
                 Writer.Write( Console.ReadLine() );
                 Console.WriteLine( "Server Response: " + Reader.ReadString() );
             }
-            
         }
-
-
     }
 }

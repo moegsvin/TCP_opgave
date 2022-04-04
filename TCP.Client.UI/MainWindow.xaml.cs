@@ -24,7 +24,6 @@ namespace TCP.Client.UI
     {
         public MainWindow()
         {
-            
             InitializeComponent();
         }
 
@@ -33,14 +32,10 @@ namespace TCP.Client.UI
             var _client = new Client();
             _client.Connect();
 
-            TextBox textBoxAnswer = this.FindName("Client_Input") as TextBox;
-
+            TextBox textBoxAnswer = (TextBox)FindName("Client_Input");
 
             MessageBox.Show("Client Message: " + textBoxAnswer.Text);
             MessageBox.Show("Server Response: " + _client.SendStringWithEcho(textBoxAnswer.Text));
         }
-
-
-
     }
 }
